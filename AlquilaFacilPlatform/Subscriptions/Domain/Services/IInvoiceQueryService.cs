@@ -1,3 +1,4 @@
+using AlquilaFacilPlatform.Subscriptions.Domain.Model.Aggregates;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Queries;
 

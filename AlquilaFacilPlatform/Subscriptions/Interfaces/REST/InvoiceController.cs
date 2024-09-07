@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Queries;
 using AlquilaFacilPlatform.Subscriptions.Domain.Services;
 using AlquilaFacilPlatform.Subscriptions.Interfaces.REST.Resources;
@@ -8,6 +9,7 @@ namespace AlquilaFacilPlatform.Subscriptions.Interfaces.REST;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 public class InvoiceController(
     IInvoiceCommandService invoiceCommandService,
     IInvoiceQueryService invoiceQueryService) 
@@ -26,7 +28,7 @@ public class InvoiceController(
     }
     
     [HttpGet("{invoiceId}")]
-    public async Task<IActionResult> GetInvoiceById([FromRoute] int invoiceId)
+    public async Task<IActionResult> GetInvoiceById(int invoiceId)
     {
         var invoice = await invoiceQueryService.Handle(new GetInvoiceByIdQuery(invoiceId));
         if (invoice == null) return NotFound();
