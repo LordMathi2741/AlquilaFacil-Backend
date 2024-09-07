@@ -17,8 +17,8 @@ public class ContactQueryService(IContactRepository contactRepository) : IContac
         return contactRepository.FindContactsByUserIdAsync(query.propertyId);
     }
 
-    public Task<Contact?> Handle(GetContactByIdQuery query)
+    public async Task<Contact?> Handle(GetContactByIdQuery query)
     {
-        return contactRepository.FindByIdAsync(query.Id);
+        return await contactRepository.FindByIdAsync(query.Id);
     }
 }
