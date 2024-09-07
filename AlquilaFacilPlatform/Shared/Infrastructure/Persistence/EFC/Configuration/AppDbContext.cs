@@ -177,6 +177,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
                 h.Property(g => g.PhoneNumber).HasColumnName("PhoneNumber");
 
             });
+
+        builder.Entity<Contact>().HasOne<User>().WithMany().HasForeignKey(c => c.UserId);
         
         
         //IAM Context

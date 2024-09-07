@@ -5,7 +5,6 @@ namespace AlquilaFacilPlatform.Contacts.Domain.Repositories;
 
 public interface IContactRepository : IBaseRepository<Contact>
 {
-    Task<Contact?> FindBypropertyIdAsync(int queryPropertyId);
-        Task<Contact?> FindByIdAsync(int id);
+    IQueryable<Contact> FindContactsByUserIdAsync(int queryPropertyId);
 
 }

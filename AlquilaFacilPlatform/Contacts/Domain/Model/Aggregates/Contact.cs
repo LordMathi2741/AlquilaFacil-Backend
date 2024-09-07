@@ -5,7 +5,7 @@ using Phone = AlquilaFacilPlatform.Profiles.Domain.Model.ValueObjects.Phone;
 
 namespace AlquilaFacilPlatform.Contacts.Domain.Model.Aggregates;
 
-public partial class Contact : IEnumerable, IEnumerable<Contact>
+public partial class Contact 
 {
     public Contact()
     {
@@ -13,15 +13,16 @@ public partial class Contact : IEnumerable, IEnumerable<Contact>
         CMessage = new Message();
         FullName = new NameSurname();
         NPhone = new Phone();
+        UserId = 0;
     }
 
-    public Contact(string name, string lastname, string message, string email, string phone, int propertyId) : this()
+    public Contact(string name, string lastname, string message, string email, string phone, int userId) : this()
     {
         EAdress = new Email(email);
         CMessage = new Message(message);
         FullName = new NameSurname(name, lastname);
         NPhone = new Phone(phone);
-        this.propertyId = propertyId;
+        UserId = userId;
     }
 
     public Contact(CreateContactCommand command)
@@ -30,6 +31,7 @@ public partial class Contact : IEnumerable, IEnumerable<Contact>
         CMessage = new Message(command.Message);
         FullName = new NameSurname(command.Name, command.Lastname);
         NPhone = new Phone(command.Phone);
+        UserId = command.UserId;
     }
 
     public int Id { get; }
@@ -40,19 +42,9 @@ public partial class Contact : IEnumerable, IEnumerable<Contact>
     public Phone NPhone { get; private set; }
     
     public int UserId { get; set; }
-    public int propertyId { get; set; }
     public string Email => EAdress.EmailAdress;
     public string Message => CMessage.ContactMessage;
     public string NameSurname => FullName.FullSurname;
     public string Phone => NPhone.PhoneNumber;
-
-    IEnumerator<Contact> IEnumerable<Contact>.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerator GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    
 }

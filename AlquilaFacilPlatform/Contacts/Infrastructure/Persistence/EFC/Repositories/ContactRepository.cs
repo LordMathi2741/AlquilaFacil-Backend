@@ -8,10 +8,9 @@ namespace AlquilaFacilPlatform.Contacts.Infrastructure.Persistence.EFC.Repositor
 
 public class ContactRepository(AppDbContext context) : BaseRepository<Contact>(context), IContactRepository
 {
-    private IContactRepository _contactRepositoryImplementation;
-
-    public Task<Contact?> FindBypropertyIdAsync(int queryPropertyId)
+    
+    public IQueryable<Contact> FindContactsByUserIdAsync(int userId)
     {
-        return context.Set<Contact>().FirstOrDefaultAsync(c => c.propertyId == queryPropertyId);
+        return context.Set<Contact>().Where(contact => contact.UserId == userId);
     }
 }

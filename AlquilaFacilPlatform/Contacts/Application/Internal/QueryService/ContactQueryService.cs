@@ -12,18 +12,13 @@ public class ContactQueryService(IContactRepository contactRepository) : IContac
         return await contactRepository.ListAsync();
     }
 
-    public async Task<Contact?> Handle(GetContactsBypropertyIdQuery query)
+    public IQueryable<Contact?> Handle(GetContactsByUserIdQuery query)
     {
-        return await contactRepository.FindBypropertyIdAsync(query.propertyId);
+        return contactRepository.FindContactsByUserIdAsync(query.propertyId);
     }
 
     public Task<Contact?> Handle(GetContactByIdQuery query)
     {
         return contactRepository.FindByIdAsync(query.Id);
-    }
-
-    public async Task<IEnumerable<Contact>> FindBypropertysIdAsync(int queryPropertyId)
-    {
-        return await contactRepository.FindBypropertyIdAsync(queryPropertyId);
     }
 }

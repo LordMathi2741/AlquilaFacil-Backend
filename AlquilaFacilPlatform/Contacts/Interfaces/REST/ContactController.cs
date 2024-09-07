@@ -45,19 +45,19 @@ public class ContactController(IContactCommandService contactCommandService, ICo
         return Ok(contactResource);
     }
     
-    [HttpGet("{propertyId}")]
-    public async Task<IActionResult> GetContactsByPropertyId(int propertyId)
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetContactsByPropertyId(int userId)
     {
-        var getContactsByPropertyIdQuery = new GetContactsBypropertyIdQuery(propertyId);
-        var contacts = await contactQueryService.Handle(getContactsByPropertyIdQuery);
+        var getContactsByPropertyIdQuery = new GetContactsByUserIdQuery(userId);
+        var contacts =  contactQueryService.Handle(getContactsByPropertyIdQuery);
         
         var contactResources = new List<ContactResource>();
         foreach (Contact contact in contacts)
         {
             contactResources.Add(ContactResourceFromEntityAssembler.ToResourceFromEntity(contact));
         }
-    
-        return Ok(contactResources);
+
+        return StatusCode(200, contactResources);
     }
     
     

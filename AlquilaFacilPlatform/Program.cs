@@ -1,4 +1,5 @@
 using AlquilaFacilPlatform.Contacts.Application.Internal.CommandServices;
+using AlquilaFacilPlatform.Contacts.Application.Internal.OutboundServices;
 using AlquilaFacilPlatform.Contacts.Application.Internal.QueryService;
 using AlquilaFacilPlatform.Contacts.Domain.Repositories;
 using AlquilaFacilPlatform.Contacts.Domain.Services;
@@ -164,6 +165,7 @@ builder.Services.AddScoped<ILocalCategoryQueryService, LocalCategoryQueryService
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IContactCommandService, ContactCommandService>();
 builder.Services.AddScoped<IContactQueryService, ContactQueryService>();
+builder.Services.AddScoped<IExternalUserService, ExternalUserService>();
 
 // Profiles Bounded Context Injection Configuration
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
