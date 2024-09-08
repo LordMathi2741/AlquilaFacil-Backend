@@ -40,7 +40,7 @@ public class ProfileTests
             "New Doe",
             "2000-01-01",
             "12345678",
-            "999999999"
+            "999999999",1
         );
         
         profile.Update(updateCommand);
