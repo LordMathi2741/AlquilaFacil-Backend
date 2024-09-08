@@ -1,5 +1,8 @@
 using AlquilaFacilPlatform.Profiles.Domain.Model.Aggregates;
 using AlquilaFacilPlatform.Profiles.Domain.Model.Commands;
+using AlquilaFacilPlatform.Profiles.Domain.Model.Queries;
+using AlquilaFacilPlatform.Profiles.Domain.Services;
+using Moq;
 
 namespace AlquilaFacilPlatform.Tests.UnitTests;
 
@@ -48,6 +51,19 @@ public class ProfileTests
         Assert.Equal(updateCommand.DateOfBirth, profile.Birth.BirthDate);
         Assert.Equal(updateCommand.DocumentNumber, profile.DocumentN.NumberDocument);
         Assert.Equal(updateCommand.Phone, profile.PhoneN.PhoneNumber);
+    }
+
+    [Fact]
+    public void ProfileQueryServiceMustToWork()
+    {
+        var query = new GetAllProfilesQuery();
+        var queryService = new Mock<IProfileQueryService>();
+        
+        //SetUp
+        queryService.Setup(x => x.Handle(query));
+        //Assert
+        
+        queryService.Verify(x => x.Handle(query), Times.Once);
     }
 
 }
