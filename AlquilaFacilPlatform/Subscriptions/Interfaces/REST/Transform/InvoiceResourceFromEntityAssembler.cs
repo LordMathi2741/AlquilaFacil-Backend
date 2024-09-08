@@ -8,8 +8,7 @@ public static class InvoiceResourceFromEntityAssembler
 {
     public static InvoiceResource ToResourceFromEntity(Invoice entity)
     {
-        return new InvoiceResource(entity.Id, 
-            SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(entity.Subscription),
+        return new InvoiceResource(entity.SubscriptionId,
             entity.Amount,
             entity.Date);
     }

@@ -46,12 +46,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .WithOne(s => s.Plan)
             .HasForeignKey(s => s.PlanId)
             .HasPrincipalKey(p => p.Id);
-        
-        builder.Entity<Subscription>()
-            .HasMany(p => p.Invoices)
-            .WithOne(i => i.Subscription)
-            .HasForeignKey(s => s.SubscriptionId)
-            .HasPrincipalKey(s => s.Id);
+
+        builder.Entity<Subscription>().HasMany<Invoice>().WithOne().HasForeignKey(i => i.SubscriptionId);
 
 
         builder.Entity<LocalCategory>().HasKey(c => c.Id);
