@@ -36,6 +36,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Subscription>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Subscription>().HasOne<SubscriptionStatus>().WithMany()
             .HasForeignKey(s => s.SubscriptionStatusId);
+        
 
         builder.Entity<SubscriptionStatus>().HasKey(s => s.Id);
         builder.Entity<SubscriptionStatus>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
@@ -46,12 +47,9 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Invoice>().Property(i => i.SubscriptionId).IsRequired();
         builder.Entity<Invoice>().Property(i => i.Amount).IsRequired();
         builder.Entity<Invoice>().Property(i => i.Date).IsRequired();
-        
-        builder.Entity<Plan>()
-            .HasMany(p => p.Subscriptions)
-            .WithOne(s => s.Plan)
-            .HasForeignKey(s => s.PlanId)
-            .HasPrincipalKey(p => p.Id);
+
+        builder.Entity<Subscription>()
+            .HasOne<Plan>().WithMany().HasForeignKey(s => s.PlanId);
 
         builder.Entity<Subscription>().HasMany<Invoice>().WithOne().HasForeignKey(i => i.SubscriptionId);
 

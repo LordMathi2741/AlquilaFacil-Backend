@@ -1,3 +1,4 @@
+using AlquilaFacilPlatform.Subscriptions.Domain.Model.Commands;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.ValueObjects;
 
@@ -12,14 +13,20 @@ public partial class Subscription
     public int SubscriptionStatusId { get; set; }
     
     public ICollection<Invoice> Invoices { get; }
-    
-    public Plan Plan { get; internal set; }
-    public int PlanId { get; private set; }
+    public int PlanId { get; set; }
 
-    public Subscription(int planId)
+    public Subscription()
     {
-        PlanId = planId;
+        PlanId = 0;
+        UserId = 0;
+    }
+
+    public Subscription(CreateSubscriptionCommand command)
+    {
+        UserId = command.UserId;
+        PlanId = command.PlanId;
         SubscriptionStatusId = 2;
     }
+    
     
 }

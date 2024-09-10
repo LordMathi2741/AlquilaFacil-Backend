@@ -1,3 +1,3 @@
 namespace AlquilaFacilPlatform.Subscriptions.Domain.Model.Commands;
 
-public record CreateSubscriptionCommand(int UserId,int PlanId);
+public record UpdateSubscriptionStatusCommand(int Id, int StatusId);

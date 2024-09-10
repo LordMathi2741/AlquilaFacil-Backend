@@ -36,6 +36,7 @@ using AlquilaFacilPlatform.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Repositories;
 using AlquilaFacilPlatform.Subscriptions.Application.Internal.CommandServices;
+using AlquilaFacilPlatform.Subscriptions.Application.Internal.OutBoundServices;
 using AlquilaFacilPlatform.Subscriptions.Application.Internal.QueryServices;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Commands;
 using AlquilaFacilPlatform.Subscriptions.Domain.Repositories;
@@ -138,6 +139,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionCommandService, SubscriptionCommandService>();
 builder.Services.AddScoped<ISubscriptionQueryServices, SubscriptionQueryService>();
+builder.Services.AddScoped<IExternalUserWithSubscriptionService, ExternalUserWithSubscriptionService>();
 
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 builder.Services.AddScoped<IPlanCommandService, PlanCommandService>();
