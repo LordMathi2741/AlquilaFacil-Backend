@@ -14,7 +14,6 @@ public class LocalRepository(AppDbContext context) : BaseRepository<Local>(conte
     public async Task<IEnumerable<Local>> FindByLocalCategoryIdAsync(int localCategoryId)
     {
         return await Context.Set<Local>()
-            .Include(local => local.LocalCategory)
             .Where(local => local.LocalCategoryId == localCategoryId)
             .ToListAsync();
     }

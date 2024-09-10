@@ -50,6 +50,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
         builder.Entity<Subscription>()
             .HasOne<Plan>().WithMany().HasForeignKey(s => s.PlanId);
+        
 
         builder.Entity<Subscription>().HasMany<Invoice>().WithOne().HasForeignKey(i => i.SubscriptionId);
 
@@ -57,13 +58,12 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<LocalCategory>().HasKey(c => c.Id);
         builder.Entity<LocalCategory>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<LocalCategory>().Property(c => c.Name).IsRequired().HasMaxLength(30);
+
+
+        builder.Entity<LocalCategory>().HasMany<Local>()
+            .WithOne()
+            .HasForeignKey(t => t.LocalCategoryId);
         
-        
-        builder.Entity<LocalCategory>()
-            .HasMany(c => c.Locals)
-            .WithOne(t => t.LocalCategory)
-            .HasForeignKey(t => t.LocalCategoryId)
-            .HasPrincipalKey(t => t.Id);
         
         
         
@@ -111,6 +111,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
                 a.Property(s => s.City).HasColumnName("City");
 
             });
+
+        builder.Entity<Local>().HasOne<User>().WithMany().HasForeignKey(l => l.UserId);
             
         // Profile Context
         

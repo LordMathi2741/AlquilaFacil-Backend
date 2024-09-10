@@ -17,9 +17,10 @@ public class LocalTests
         string photoUrl = "https://a0.muscache.com/im/pictures/pro_photo_tool/Hosting-14127027-unapproved/original/af62b9d0-db54-4d2d-aa89-20cc5a40394f.JPEG?im_w=720";
         string descriptionMessage = "Esta casa urbana combina diseño contemporáneo con comodidades de lujo. Disfruta de espacios amplios, luz natural y una ubicación privilegiada cerca de restaurantes, tiendas y parques.";
         int localCategoryId = 1;
+        int userId = 1;
 
         var local = new Local(district, street, localType, country, city, price, photoUrl, descriptionMessage,
-            localCategoryId);
+            localCategoryId, userId);
         
         Assert.Equal(localType, local.LocalType);
         Assert.Equal(district, local.Address.District);
@@ -44,7 +45,7 @@ public class LocalTests
             125,
             "https://a0.muscache.com/im/pictures/pro_photo_tool/Hosting-14127027-unapproved/original/af62b9d0-db54-4d2d-aa89-20cc5a40394f.JPEG?im_w=720",
             "Esta casa urbana combina diseño contemporáneo con comodidades de lujo. Disfruta de espacios amplios, luz natural y una ubicación privilegiada cerca de restaurantes, tiendas y parques.",
-            1);
+            1,1);
         
         var local = new Local(createLocal);
 

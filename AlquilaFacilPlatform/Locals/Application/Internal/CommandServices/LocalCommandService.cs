@@ -15,12 +15,14 @@ public class LocalCommandService (ILocalRepository localRepository, ILocalCatego
     
     public async Task<Local?> Handle(CreateLocalCommand command)
     {
-        var local = new Local(command.District, command.Street, command.LocalType, command.Country, command.City, 
-            command.Price, command.PhotoUrl, command.DescriptionMessage, command.LocalCategoryId);
+        var localCategory = await localCategoryRepository.FindByIdAsync(command.LocalCategoryId);
+        if (localCategory == null)
+        {
+            throw new Exception("Local category not found");
+        }
+        var local = new Local(command);
         await localRepository.AddAsync(local);
         await unitOfWork.CompleteAsync();
-        var localCategory = await localCategoryRepository.FindByIdAsync(command.LocalCategoryId);
-        local.LocalCategory = localCategory;
         return local;
     }
 }
