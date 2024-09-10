@@ -52,7 +52,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .HasOne<Plan>().WithMany().HasForeignKey(s => s.PlanId);
         
 
-        builder.Entity<Subscription>().HasMany<Invoice>().WithOne().HasForeignKey(i => i.SubscriptionId);
+        builder.Entity<Subscription>().HasOne<Invoice>().WithOne().HasForeignKey<Invoice>(i => i.SubscriptionId);
 
 
         builder.Entity<LocalCategory>().HasKey(c => c.Id);
