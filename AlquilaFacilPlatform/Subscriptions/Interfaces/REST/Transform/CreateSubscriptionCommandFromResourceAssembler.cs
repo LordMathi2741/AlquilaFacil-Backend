@@ -7,6 +7,6 @@ public static class CreateSubscriptionCommandFromResourceAssembler
 {
     public static CreateSubscriptionCommand ToCommandFromResource(CreateSubscriptionResource resource)
     {
-        return new CreateSubscriptionCommand(resource.PlanId);
+        return new CreateSubscriptionCommand(resource.PlanId,resource.UserId);
     }
 }

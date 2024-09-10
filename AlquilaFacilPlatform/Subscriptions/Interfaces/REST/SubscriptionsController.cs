@@ -1,3 +1,4 @@
+using AlquilaFacilPlatform.Subscriptions.Domain.Model.Commands;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Queries;
 using AlquilaFacilPlatform.Subscriptions.Domain.Services;
 using AlquilaFacilPlatform.Subscriptions.Interfaces.REST.Resources;
@@ -43,4 +44,15 @@ public class SubscriptionsController(
         var resource = SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(subscription);
         return Ok(resource);
     }
+
+    [HttpPut("{subscriptionId}/{subscriptionStatusId}")]
+    public async Task<IActionResult> UpdateSubscriptionStatus(int subscriptionId, int subscriptionStatusId)
+    {
+        var updateSubscriptionStatusCommand = new UpdateSubscriptionStatusCommand(subscriptionId, subscriptionStatusId);
+        var subscription = await subscriptionCommandService.Handle(updateSubscriptionStatusCommand);
+        if (subscription == null) return NotFound();
+        var resource = SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(subscription);
+        return Ok(resource);
+    }
+   
 }

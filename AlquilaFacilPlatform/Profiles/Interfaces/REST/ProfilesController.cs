@@ -35,7 +35,7 @@ public class ProfilesController(
     }
     
     [HttpGet("{profileId}")]
-    public async Task<IActionResult> GetProfileById([FromRoute] int profileId)
+    public async Task<IActionResult> GetProfileById(int profileId)
     {
         var profile = await profileQueryService.Handle(new GetProfileByIdQuery(profileId));
         if (profile == null) return NotFound();
@@ -44,9 +44,9 @@ public class ProfilesController(
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> UpdateFarm([FromBody] UpdateProfileResource updateProfileResource)
+    public async Task<ActionResult> UpdateFarm(int id,[FromBody] UpdateProfileResource updateProfileResource)
     {
-        var updateProfileCommand = UpdateProfileCommandFromResourceAssembler.ToCommandFromResource(updateProfileResource);
+        var updateProfileCommand = UpdateProfileCommandFromResourceAssembler.ToCommandFromResource(updateProfileResource,id);
         var result = await profileCommandService.Handle(updateProfileCommand);
         return Ok(ProfileResourceFromEntityAssembler.ToResourceFromEntity(result));
     }

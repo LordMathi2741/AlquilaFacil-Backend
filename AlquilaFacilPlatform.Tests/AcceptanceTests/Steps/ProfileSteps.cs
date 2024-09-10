@@ -49,7 +49,9 @@ public class ProfileSteps
              row["MotherName"], 
              row["DateOfBirth"],
              row["DocumentNumber"],
-             row["Phone"]); 
+             row["Phone"],
+             Convert.ToInt32(row["UserId"])
+             ); 
          try
          { 
              profile.Update(updateCommand);
@@ -83,7 +85,7 @@ public class ProfileSteps
              row.ContainsKey("MotherName") ? row["MotherName"] : null,
              row["DateOfBirth"],
              row.ContainsKey("DocumentNumber") ? row["DocumentNumber"] : null,
-             row.ContainsKey("Phone") ? row["Phone"] : null
+             row.ContainsKey("Phone") ? row["Phone"] : null, Convert.ToInt32(row["UserId"])
              );
 
          try

@@ -35,7 +35,7 @@ public class ContactController(IContactCommandService contactCommandService, ICo
         return Ok(contactResources);
     }
 
-    [HttpGet("{contactId:int}")]
+    [HttpGet("{contactId}")]
     public async Task<IActionResult> GetContactById(int contactId)
     {
         var getContactByIdQuery = new GetContactByIdQuery(contactId);
@@ -45,18 +45,13 @@ public class ContactController(IContactCommandService contactCommandService, ICo
         return Ok(contactResource);
     }
     
-    [HttpGet("{userId}")]
-    public async Task<IActionResult> GetContactsByPropertyId(int userId)
+    [HttpGet("/find-by-userId/{userId}")]
+    public  IActionResult GetContactsByPropertyId(int userId)
     {
         var getContactsByPropertyIdQuery = new GetContactsByUserIdQuery(userId);
         var contacts =  contactQueryService.Handle(getContactsByPropertyIdQuery);
-        
-        var contactResources = new List<ContactResource>();
-        foreach (Contact contact in contacts)
-        {
-            contactResources.Add(ContactResourceFromEntityAssembler.ToResourceFromEntity(contact));
-        }
-
+        if (contacts == null) return NotFound();
+        var contactResources = contacts.Select(ContactResourceFromEntityAssembler.ToResourceFromEntity);
         return StatusCode(200, contactResources);
     }
     

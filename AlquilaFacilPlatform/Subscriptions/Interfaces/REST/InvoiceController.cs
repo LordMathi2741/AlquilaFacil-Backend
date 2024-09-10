@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Queries;
 using AlquilaFacilPlatform.Subscriptions.Domain.Services;
 using AlquilaFacilPlatform.Subscriptions.Interfaces.REST.Resources;
@@ -8,6 +9,7 @@ namespace AlquilaFacilPlatform.Subscriptions.Interfaces.REST;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 public class InvoiceController(
     IInvoiceCommandService invoiceCommandService,
     IInvoiceQueryService invoiceQueryService) 
@@ -21,15 +23,22 @@ public class InvoiceController(
         var invoice = await invoiceCommandService.Handle(createInvoiceCommand);
         if (invoice is null) return BadRequest();
         var resource = InvoiceResourceFromEntityAssembler.ToResourceFromEntity(invoice);
-        
-        return CreatedAtAction(nameof(GetInvoiceById), new { invoiceId = resource.Id }, resource);
+        return Ok(resource);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetInvoices()
+    {
+        var invoices = await invoiceQueryService.Handle(new GetAllInvoicesQuery());
+        var resource = invoices.Select(InvoiceResourceFromEntityAssembler.ToResourceFromEntity);
+        return Ok(resource);
     }
     
     [HttpGet("{invoiceId}")]
-    public async Task<IActionResult> GetInvoiceById([FromRoute] int invoiceId)
+    public async Task<IActionResult> GetInvoiceById(int invoiceId)
     {
         var invoice = await invoiceQueryService.Handle(new GetInvoiceByIdQuery(invoiceId));
-        if (invoice == null) return NotFound();
+        if (invoice is null) return NotFound();
         var resource = InvoiceResourceFromEntityAssembler.ToResourceFromEntity(invoice);
         return Ok(resource);
     }

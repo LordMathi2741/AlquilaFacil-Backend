@@ -36,7 +36,9 @@ using AlquilaFacilPlatform.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Repositories;
 using AlquilaFacilPlatform.Subscriptions.Application.Internal.CommandServices;
+using AlquilaFacilPlatform.Subscriptions.Application.Internal.OutBoundServices;
 using AlquilaFacilPlatform.Subscriptions.Application.Internal.QueryServices;
+using AlquilaFacilPlatform.Subscriptions.Domain.Model.Commands;
 using AlquilaFacilPlatform.Subscriptions.Domain.Repositories;
 using AlquilaFacilPlatform.Subscriptions.Domain.Services;
 using AlquilaFacilPlatform.Subscriptions.Infrastructure.Persistence.EFC.Repositories;
@@ -137,6 +139,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionCommandService, SubscriptionCommandService>();
 builder.Services.AddScoped<ISubscriptionQueryServices, SubscriptionQueryService>();
+builder.Services.AddScoped<IExternalUserWithSubscriptionService, ExternalUserWithSubscriptionService>();
 
 builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 builder.Services.AddScoped<IPlanCommandService, PlanCommandService>();
@@ -167,6 +170,11 @@ builder.Services.AddScoped<IContactCommandService, ContactCommandService>();
 builder.Services.AddScoped<IContactQueryService, ContactQueryService>();
 builder.Services.AddScoped<IExternalUserService, ExternalUserService>();
 
+
+builder.Services.AddScoped<ISubscriptionStatusRepository, SubscriptionStatusRepository>();
+builder.Services.AddScoped<ISubscriptionStatusCommandService, SubscriptionStatusCommandService>();
+
+
 // Profiles Bounded Context Injection Configuration
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IProfileCommandService, ProfileCommandService>();
@@ -191,7 +199,12 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     context.Database.EnsureCreated();
+    
+    var subscriptionStatusCommandService = services.GetRequiredService<ISubscriptionStatusCommandService>();
+    await subscriptionStatusCommandService.Handle(new SeedSubscriptionStatusCommand());
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
