@@ -9,7 +9,7 @@ public partial class Subscription
     
     public int UserId { get; set; }
     
-    public ESubscriptionStatus Status { get; protected set; }
+    public int SubscriptionStatusId { get; set; }
     
     public ICollection<Invoice> Invoices { get; }
     
@@ -19,19 +19,7 @@ public partial class Subscription
     public Subscription(int planId)
     {
         PlanId = planId;
-        Status = ESubscriptionStatus.Pending;
+        SubscriptionStatusId = 2;
     }
-
-    public void Active() => Status = ESubscriptionStatus.Active;
-    public void Pending() => Status = ESubscriptionStatus.Pending;
-    public void Expired() => Status = ESubscriptionStatus.Expired;
-    public void Cancelled() => Status = ESubscriptionStatus.Cancelled;
-    public void Suspended() => Status = ESubscriptionStatus.Suspended;
-    public void Trial() => Status = ESubscriptionStatus.Trial;
-    public void RenewalDue() => Status = ESubscriptionStatus.RenewalDue;
-
-    public ESubscriptionStatus GetStatus()
-    {
-        return Status;
-    }
+    
 }

@@ -1,5 +1,6 @@
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Queries;
+using AlquilaFacilPlatform.Subscriptions.Domain.Model.ValueObjects;
 
 namespace AlquilaFacilPlatform.Subscriptions.Domain.Services;
 

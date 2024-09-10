@@ -10,6 +10,6 @@ public static class SubscriptionResourceFromEntityAssembler
     {
         return new SubscriptionResource(entity.Id,
             PlanResourceFromEntityAssembler.ToResourceFromEntity(entity.Plan),
-            entity.Status.GetDisplayName());
+            entity.SubscriptionStatusId);
     }
 }

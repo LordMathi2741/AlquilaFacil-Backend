@@ -4,7 +4,7 @@ using AlquilaFacilPlatform.Subscriptions.Domain.Model.ValueObjects;
 
 namespace AlquilaFacilPlatform.Subscriptions.Domain.Repositories;
 
-public interface ISubscriptionPaymentRepository : IBaseRepository<SubscriptionPayment>
+public interface ISubscriptionStatusRepository : IBaseRepository<SubscriptionStatus>
 {
-    
+    Task<bool> ExistsBySubscriptionStatus(ESubscriptionStatus subscriptionStatus);
 }

@@ -1,11 +1,16 @@
-using AlquilaFacilPlatform.Shared.Domain.Repositories;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Repositories;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.ValueObjects;
 using AlquilaFacilPlatform.Subscriptions.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlquilaFacilPlatform.Subscriptions.Infrastructure.Persistence.EFC.Repositories;
 
-public class SubscriptionPaymentRepository(AppDbContext context) : 
-    BaseRepository<SubscriptionPayment>(context), ISubscriptionPaymentRepository;
+public class SubscriptionStatusRepository(AppDbContext context) : BaseRepository<SubscriptionStatus>(context), ISubscriptionStatusRepository
+{
+    public async Task<bool> ExistsBySubscriptionStatus(ESubscriptionStatus subscriptionStatus)
+    {
+        return await context.Set<SubscriptionStatus>().AnyAsync(x => x.Status == subscriptionStatus.ToString());
+    }
+}

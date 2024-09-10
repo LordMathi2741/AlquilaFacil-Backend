@@ -1,4 +1,4 @@
-namespace AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
+namespace AlquilaFacilPlatform.Subscriptions.Domain.Model.ValueObjects;
 
 public class SubscriptionPayment
 {
