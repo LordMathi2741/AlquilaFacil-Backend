@@ -31,6 +31,10 @@ public class UserCommandService (
     }
     public async Task<User?> Handle(SignUpCommand command)
     {
+        const string symbols = "!@#$%^&*()_-+=[{]};:>|./?";
+        if (command.Password.Length < 8 || !command.Password.Any(char.IsDigit) || !command.Password.Any(char.IsUpper) || !command.Password.Any(char.IsLower) || !command.Password.Any(c => symbols.Contains(c)))
+            throw new Exception("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one special character");
+        
         if (userRepository.ExistsByUsername(command.Username))
             throw new Exception($"Username {command.Username} is already taken");
 
@@ -54,3 +58,4 @@ public class UserCommandService (
         return user;
     }
 }
+

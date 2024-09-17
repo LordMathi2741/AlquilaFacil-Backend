@@ -16,6 +16,15 @@ public class ContactCommandService (IContactRepository contactRepository, IUnitO
         {
             throw new Exception("This user doesnt exists " + command.UserId);
         }
+        if (!command.Email.Contains('@'))
+        {
+            throw new Exception("Invalid email");
+        }
+
+        if (command.Phone.Length < 9)
+        {
+            throw new Exception("Invalid phone number, must be at least 9 digits");
+        }
         var contact = new Contact(command.Name, command.Lastname, command.Message, command.Email, command.Phone, command.UserId);
         await contactRepository.AddAsync(contact);
         await unitOfWork.CompleteAsync();

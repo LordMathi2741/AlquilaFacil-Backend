@@ -11,6 +11,10 @@ public class PlanCommandService(IPlanRepository planRepository, IUnitOfWork unit
 {
     public async Task<Plan?> Handle(CreatePlanCommand command)
     {
+        if (command.Price <= 0)
+        {
+            throw new Exception("Plan price cannot be negative or less than 0");
+        }
         var plan = new Plan(command.Name, command.Service, command.Price);
         await planRepository.AddAsync(plan);
         await unitOfWork.CompleteAsync();
