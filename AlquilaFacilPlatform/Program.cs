@@ -7,6 +7,7 @@ using AlquilaFacilPlatform.Contacts.Infrastructure.Persistence.EFC.Repositories;
 using AlquilaFacilPlatform.IAM.Application.Internal.CommandServices;
 using AlquilaFacilPlatform.IAM.Application.Internal.OutboundServices;
 using AlquilaFacilPlatform.IAM.Application.Internal.QueryServices;
+using AlquilaFacilPlatform.IAM.Domain.Model.Commands;
 using AlquilaFacilPlatform.IAM.Domain.Respositories;
 using AlquilaFacilPlatform.IAM.Domain.Services;
 using AlquilaFacilPlatform.IAM.Infrastructure.Hashing.BCrypt.Services;
@@ -182,6 +183,10 @@ builder.Services.AddScoped<IProfileQueryService, ProfileQueryService>();
 builder.Services.AddScoped<IProfilesContextFacade, ProfilesContextFacade>();
 builder.Services.AddScoped<IUserExternalService, UserExternalService>();
 
+
+builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+builder.Services.AddScoped<ISeedUserRoleCommandService, SeedUserRoleCommandService>();
+
 // IAM Bounded Context Injection Configuration
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
 
@@ -202,6 +207,9 @@ using (var scope = app.Services.CreateScope())
     
     var subscriptionStatusCommandService = services.GetRequiredService<ISubscriptionStatusCommandService>();
     await subscriptionStatusCommandService.Handle(new SeedSubscriptionStatusCommand());
+    
+    var userRoleCommandService = services.GetRequiredService<ISeedUserRoleCommandService>();
+    await userRoleCommandService.Handle(new SeedUserRolesCommand());
 }
 
 

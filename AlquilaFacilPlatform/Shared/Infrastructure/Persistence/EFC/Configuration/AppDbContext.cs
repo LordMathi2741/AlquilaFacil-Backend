@@ -3,6 +3,7 @@ using AlquilaFacilPlatform.Shared.Infrastructure.Persistence.EFC.Configuration.E
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Aggregates;
 using AlquilaFacilPlatform.Subscriptions.Domain.Model.Entities;
 using AlquilaFacilPlatform.IAM.Domain.Model.Aggregates;
+using AlquilaFacilPlatform.IAM.Domain.Model.Entities;
 using AlquilaFacilPlatform.Locals.Domain.Model.Aggregates;
 using AlquilaFacilPlatform.Locals.Domain.Model.Entities;
 using AlquilaFacilPlatform.Profiles.Domain.Model.Aggregates;
@@ -189,6 +190,12 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<User>().Property(u => u.Username).IsRequired();
         builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
+        builder.Entity<UserRole>().HasMany<User>().WithOne().HasForeignKey(u => u.RoleId);
+
+        builder.Entity<UserRole>().HasKey(ur => ur.Id);
+        builder.Entity<UserRole>().Property(ur => ur.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<UserRole>().Property(ur => ur.Role).IsRequired();
+        
             
         /*builder.Entity<User>()
             .HasMany(c => c.Profiles)

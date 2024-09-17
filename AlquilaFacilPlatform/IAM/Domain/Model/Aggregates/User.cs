@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using AlquilaFacilPlatform.IAM.Domain.Model.Entities;
+using AlquilaFacilPlatform.IAM.Domain.Model.ValueObjects;
 using AlquilaFacilPlatform.Profiles.Domain.Model.Aggregates;
 
 namespace AlquilaFacilPlatform.IAM.Domain.Model.Aggregates;
@@ -11,6 +13,8 @@ public class User(string username, string passwordHash)
 
     public int Id { get; }
     public string Username { get; private set; } = username;
+
+    public int RoleId { get; set; } = 2;
     
 
     [JsonIgnore] public string PasswordHash { get; private set; } = passwordHash;
