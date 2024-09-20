@@ -17,9 +17,9 @@ public class UserQueryService (IUserRepository userRepository) : IUserQueryServi
         return await userRepository.ListAsync();
     }
     
-    public async Task<User?> Handle(GetUserByUsernameQuery query)
+    public async Task<User?> Handle(GetUserByEmailQuery query)
     {
-        return await userRepository.FindByUsernameAsync(query.Username);
+        return await userRepository.FindByEmailAsync(query.Email);
     }
 
     public bool Handle(UserExistsQuery query)

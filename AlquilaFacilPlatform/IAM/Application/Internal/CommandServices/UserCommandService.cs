@@ -20,10 +20,10 @@ public class UserCommandService (
 {
     public async Task<(User user, string token)> Handle(SignInCommand command)
     {
-        var user = await userRepository.FindByUsernameAsync(command.Username);
+        var user = await userRepository.FindByEmailAsync(command.Email);
 
-        if (user == null || !hashingService.VerifyPassword(command.Password, user.PasswordHash))
-            throw new Exception("Invalid username or password");
+        if (user == null || !hashingService.VerifyPassword(command.Password, user.PasswordHash) || !command.Email.Contains('@'))
+            throw new Exception("Invalid email or password");
         
         var token = tokenService.GenerateToken(user);
 
@@ -43,7 +43,7 @@ public class UserCommandService (
             throw new Exception($"Document number {command.DocumentNumber} is already taken");
 
         var hashedPassword = hashingService.HashPassword(command.Password);
-        var user = new User(command.Username, hashedPassword);
+        var user = new User(command.Username, hashedPassword,command.Email);
         try
         {
             await userRepository.AddAsync(user);

@@ -190,7 +190,7 @@ builder.Services.AddScoped<ISeedUserRoleCommandService, SeedUserRoleCommandServi
 // IAM Bounded Context Injection Configuration
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
 
-builder.Services.AddScoped<IUserRepository, UserRespository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserCommandService, UserCommandService>();
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
