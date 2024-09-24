@@ -9,7 +9,8 @@ public class UserTests
     {
         string initialUsername = "initialUsername";
         string newUsername = "newUsername";
-        var user = new User(initialUsername, "passwordHash");
+        string email = "email@gmail.com";
+        var user = new User(initialUsername, "passwordHash", email);
 
         user.UpdateUsername(newUsername);
 
@@ -22,7 +23,8 @@ public class UserTests
         string username = "username";
         string initialPasswordHash = "initialHash";
         string newPasswordHash = "newHash";
-        var user = new User(username, initialPasswordHash);
+        string email = "email@gmail.com";
+        var user = new User(username, initialPasswordHash, email);
 
         user.UpdatePasswordHash(newPasswordHash);
 

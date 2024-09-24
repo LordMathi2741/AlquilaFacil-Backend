@@ -21,9 +21,9 @@ namespace AlquilaFacilPlatform.Tests.AcceptanceTests.Steps;
         }
 
         [Given(@"a user with username ""(.*)"" and password hash ""(.*)""")]
-        public void GivenAUserWithUsernameAndPasswordHash(string username, string passwordHash)
+        public void GivenAUserWithUsernameAndPasswordHash(string username, string passwordHash, string email)
         {
-            _user = new User(username, passwordHash);
+            _user = new User(username, passwordHash, email);
             _initialUsername = username;
             _initialPasswordHash = passwordHash;
         }
