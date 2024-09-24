@@ -20,10 +20,10 @@ public class UserCommandService (
 {
     public async Task<(User user, string token)> Handle(SignInCommand command)
     {
-        var user = await userRepository.FindByUsernameAsync(command.Username);
+        var user = await userRepository.FindByEmailAsync(command.Email);
 
-        if (user == null || !hashingService.VerifyPassword(command.Password, user.PasswordHash))
-            throw new Exception("Invalid username or password");
+        if (user == null || !hashingService.VerifyPassword(command.Password, user.PasswordHash) || !command.Email.Contains('@'))
+            throw new Exception("Invalid email or password");
         
         var token = tokenService.GenerateToken(user);
 
@@ -31,6 +31,10 @@ public class UserCommandService (
     }
     public async Task<User?> Handle(SignUpCommand command)
     {
+        const string symbols = "!@#$%^&*()_-+=[{]};:>|./?";
+        if (command.Password.Length < 8 || !command.Password.Any(char.IsDigit) || !command.Password.Any(char.IsUpper) || !command.Password.Any(char.IsLower) || !command.Password.Any(c => symbols.Contains(c)))
+            throw new Exception("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit and one special character");
+        
         if (userRepository.ExistsByUsername(command.Username))
             throw new Exception($"Username {command.Username} is already taken");
 
@@ -39,7 +43,7 @@ public class UserCommandService (
             throw new Exception($"Document number {command.DocumentNumber} is already taken");
 
         var hashedPassword = hashingService.HashPassword(command.Password);
-        var user = new User(command.Username, hashedPassword);
+        var user = new User(command.Username, hashedPassword,command.Email);
         try
         {
             await userRepository.AddAsync(user);
@@ -54,3 +58,4 @@ public class UserCommandService (
         return user;
     }
 }
+

@@ -14,18 +14,18 @@ namespace AlquilaFacilPlatform.IAM.Infrastructure.Persistence.EFC.Respositories;
  *     This repository is used to manage users
  * </remarks>
  */
-public class UserRespository (AppDbContext context) : BaseRepository<User>(context), IUserRepository 
+public class UserRepository (AppDbContext context) : BaseRepository<User>(context), IUserRepository 
 {
     /**
      * <summary>
      *     Find a user by username
      * </summary>
-     * <param name="username">The username to search</param>
+     * <param name="email">The username to search</param>
      * <returns>The user</returns>
      */
-    public async Task<User?> FindByUsernameAsync(string username)
+    public async Task<User?> FindByEmailAsync(string email)
     {
-        return await Context.Set<User>().FirstOrDefaultAsync(user => user.Username.Equals(username));
+        return await Context.Set<User>().FirstOrDefaultAsync(user => user.Email == email);
     }
     
     /**

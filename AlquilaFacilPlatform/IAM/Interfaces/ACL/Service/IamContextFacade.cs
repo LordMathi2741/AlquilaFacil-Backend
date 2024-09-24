@@ -6,25 +6,18 @@ namespace AlquilaFacilPlatform.IAM.Interfaces.ACL.Service;
 
 public class IamContextFacade(IUserCommandService userCommandService, IUserQueryService userQueryService) : IIamContextFacade
 {
-    public async Task<int> CreateUser(string username, string password, string Name, string FatherName, string MotherName, string DateOfBirth, string DocumentNumber,
-        string Phone )
+    public async Task<int> CreateUser(string username, string password, string name, string fatherName, string motherName, string dateOfBirth, string documentNumber,
+        string phone,string email )
     {
-        var signUpCommand = new SignUpCommand(username, password,Name,FatherName,MotherName,DateOfBirth,DocumentNumber,Phone);
+        var signUpCommand = new SignUpCommand(username, password,name,fatherName,motherName,dateOfBirth,documentNumber,phone,email);
         await userCommandService.Handle(signUpCommand);
-        var getUserByUsernameQuery = new GetUserByUsernameQuery(username);
+        var getUserByUsernameQuery = new GetUserByEmailQuery(username);
         var result = await userQueryService.Handle(getUserByUsernameQuery);
         return result?.Id ?? 0;
     }
-/*
-    public Task<int> CreateUser(string username, string password)
-    {
-        throw new NotImplementedException();
-    }
-
-*/
     public async Task<int> FetchUserIdByUsername(string username)
     {
-        var getUserByUsernameQuery = new GetUserByUsernameQuery(username);
+        var getUserByUsernameQuery = new GetUserByEmailQuery(username);
         var result = await userQueryService.Handle(getUserByUsernameQuery);
         return result?.Id ?? 0;
     }

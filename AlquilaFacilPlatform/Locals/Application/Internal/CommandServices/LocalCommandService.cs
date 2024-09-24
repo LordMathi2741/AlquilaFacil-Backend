@@ -20,6 +20,11 @@ public class LocalCommandService (ILocalRepository localRepository, ILocalCatego
         {
             throw new Exception("Local category not found");
         }
+
+        if (command.Price <= 0)
+        {
+            throw new Exception("Price must be greater than 0");
+        }
         var local = new Local(command);
         await localRepository.AddAsync(local);
         await unitOfWork.CompleteAsync();

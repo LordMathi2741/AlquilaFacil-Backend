@@ -20,18 +20,14 @@ public class ProfileCommandService(IUserExternalService userExternalService,IPro
         {
             throw new Exception("User does not exist");
         }
-        try
+
+        if (command.Phone.Length < 9)
         {
-            await profileRepository.AddAsync(profile);
-            await unitOfWork.CompleteAsync();
-            /*var user = await userRepository.FindByIdAsync(command.UserId);
-            profile.User = user;*/
-            return profile;
-        } catch (Exception e)
-        {
-            Console.WriteLine($"An error occurred while creating the profile: {e.Message}");
-            return null;
+            throw new Exception("Phone number must to be valid");
         }
+        await profileRepository.AddAsync(profile);
+        await unitOfWork.CompleteAsync();
+        return profile;
     }
 
     public async Task<Profile> Handle(UpdateProfileCommand command)
