@@ -1,4 +1,7 @@
 /myapp/
+bin/
+obj/
 *.pdb
 *.dll
 *.deps.json
+AlquilaFacilPlatform.pdb
