@@ -11,8 +11,6 @@ public partial class Subscription
     public int UserId { get; set; }
     
     public int SubscriptionStatusId { get; set; }
-    
-    public ICollection<Invoice> Invoices { get; }
     public int PlanId { get; set; }
 
     public Subscription()

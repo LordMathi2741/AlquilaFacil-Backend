@@ -15,9 +15,8 @@ public class PlanController(IPlanCommandService planCommandService, IPlanQuerySe
     {
         var createPlanCommand = CreatePlanCommandFromResourceAssembler.ToCommandFromResource(createPlanResource);
         var plan = await planCommandService.Handle(createPlanCommand);
-        if (plan is null) return BadRequest();
         var resource = PlanResourceFromEntityAssembler.ToResourceFromEntity(plan);
-        return CreatedAtAction(nameof(GetPlanById), new { planId = resource.Id }, resource);
+        return StatusCode(201, resource);
     }
     
     [HttpGet("{planId:int}")]

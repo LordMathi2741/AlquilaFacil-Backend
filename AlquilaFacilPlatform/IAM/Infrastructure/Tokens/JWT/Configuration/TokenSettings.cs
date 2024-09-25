@@ -8,5 +8,5 @@ public class TokenSettings
  *     It is used to configure the token settings in the app settings .json file.
  * </summary>
  */
-    public string Secret { get; set; }
+    public required string Secret { get; set; }
 }
