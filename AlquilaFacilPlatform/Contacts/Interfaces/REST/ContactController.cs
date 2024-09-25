@@ -21,9 +21,9 @@ public class ContactController(IContactCommandService contactCommandService, ICo
     {
         var createContactCommand = CreateContactCommandFromResourceAssembler.ToCommandFromResources(resource);
         var contact = await contactCommandService.Handle(createContactCommand);
-        if (contact is null) return BadRequest();
+        if (contact == null) return NotFound();
         var contactResource = ContactResourceFromEntityAssembler.ToResourceFromEntity(contact);
-        return CreatedAtAction(nameof(GetContactById), new { contactId = contactResource.Id }, contactResource);
+        return StatusCode(201, contactResource);
     }
 
     [HttpGet]
@@ -40,6 +40,7 @@ public class ContactController(IContactCommandService contactCommandService, ICo
     {
         var getContactByIdQuery = new GetContactByIdQuery(contactId);
         var contact = await contactQueryService.Handle(getContactByIdQuery);
+        if (contact == null) return NotFound();
         var contactResource = ContactResourceFromEntityAssembler.ToResourceFromEntity(contact);
         return Ok(contactResource);
     }
@@ -48,7 +49,7 @@ public class ContactController(IContactCommandService contactCommandService, ICo
     public  async Task<IActionResult> GetContactsByPropertyId(int userId)
     {
         var getContactsByPropertyIdQuery = new GetContactsByUserIdQuery(userId);
-        var contacts =  contactQueryService.Handle(getContactsByPropertyIdQuery);
+        var contacts =  await contactQueryService.Handle(getContactsByPropertyIdQuery);
         var contactResources = contacts.Select(ContactResourceFromEntityAssembler.ToResourceFromEntity);
         return StatusCode(200, contactResources);
     }

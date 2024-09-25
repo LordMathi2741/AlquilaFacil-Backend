@@ -25,8 +25,7 @@ namespace AlquilaFacilPlatform.IAM.Interfaces.REST;
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 public class UsersController(
-    IUserQueryService userQueryService,
-    IUserCommandService userCommandService
+    IUserQueryService userQueryService
     ) : ControllerBase
 {
     
@@ -35,7 +34,7 @@ public class UsersController(
      * <summary>
      *     Get user by id endpoint. It allows to get a user by id
      * </summary>
-     * <param name="id">The user id</param>
+     * <param name="userId">The user id</param>
      * <returns>The user resource</returns>
      */
     [HttpGet("{userId:int}")]
