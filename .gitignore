@@ -1,0 +1,4 @@
+/myapp/
+*.pdb
+*.dll
+*.deps.json
