@@ -5,7 +5,7 @@ namespace AlquilaFacilPlatform.Contacts.Interfaces.REST.Transform;
 
 public static class ContactResourceFromEntityAssembler
 {
-    public static ContactResource ToResourceFromEntity(Contact? contact)
+    public static ContactResource ToResourceFromEntity(Contact contact)
     {
         return new ContactResource(
             contact.Id,

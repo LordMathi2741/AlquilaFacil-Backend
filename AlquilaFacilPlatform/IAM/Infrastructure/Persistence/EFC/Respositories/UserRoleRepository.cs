@@ -11,6 +11,6 @@ public class UserRoleRepository(AppDbContext context) : BaseRepository<UserRole>
 {
     public async Task<bool> ExistsUserRole(EUserRoles role)
     {
-        return await context.Set<UserRole>().AnyAsync(userRole => userRole.Role == role.ToString());
+        return await Context.Set<UserRole>().AnyAsync(userRole => userRole.Role == role.ToString());
     }
 }

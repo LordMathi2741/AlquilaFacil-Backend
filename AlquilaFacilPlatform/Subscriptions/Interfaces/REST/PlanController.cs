@@ -15,6 +15,7 @@ public class PlanController(IPlanCommandService planCommandService, IPlanQuerySe
     {
         var createPlanCommand = CreatePlanCommandFromResourceAssembler.ToCommandFromResource(createPlanResource);
         var plan = await planCommandService.Handle(createPlanCommand);
+        if (plan == null) return NotFound();
         var resource = PlanResourceFromEntityAssembler.ToResourceFromEntity(plan);
         return StatusCode(201, resource);
     }
@@ -24,6 +25,7 @@ public class PlanController(IPlanCommandService planCommandService, IPlanQuerySe
     {
         var getPlanByIdQuery = new GetPlanByIdQuery(planId);
         var plan = await planQueryService.Handle(getPlanByIdQuery);
+        if (plan == null) return NotFound();
         var resource = PlanResourceFromEntityAssembler.ToResourceFromEntity(plan);
         return Ok(resource);
     }

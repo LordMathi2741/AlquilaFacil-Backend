@@ -6,7 +6,7 @@ namespace AlquilaFacilPlatform.Contacts.Domain.Services;
 public interface IContactQueryService
 {
     Task<IEnumerable<Contact>> Handle(GetAllContactQuery query);
-    IQueryable<Contact?> Handle(GetContactsByUserIdQuery query);
+    Task<IEnumerable<Contact>> Handle(GetContactsByUserIdQuery query);
     Task<Contact?> Handle(GetContactByIdQuery query);
 
 }

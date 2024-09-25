@@ -9,7 +9,7 @@ using AlquilaFacilPlatform.Shared.Domain.Repositories;
 
 namespace AlquilaFacilPlatform.Profiles.Application.Internal.CommandServices;
 
-public class ProfileCommandService(IUserExternalService userExternalService,IProfileRepository profileRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IProfileCommandService
+public class ProfileCommandService(IUserExternalService userExternalService,IProfileRepository profileRepository, IUnitOfWork unitOfWork) : IProfileCommandService
 {
     public async Task<Profile?> Handle(CreateProfileCommand command)
     {
@@ -33,11 +33,11 @@ public class ProfileCommandService(IUserExternalService userExternalService,IPro
     public async Task<Profile> Handle(UpdateProfileCommand command)
     {
         var profile = await profileRepository.FindByIdAsync(command.Id);
-        var userId = profile.UserId;
         if (profile == null)
         {
             throw new Exception("Profile with ID does not exist");
         }
+        var userId = profile.UserId;
         profile.Update(command);
         profile.UserId = userId;
         await unitOfWork.CompleteAsync();
