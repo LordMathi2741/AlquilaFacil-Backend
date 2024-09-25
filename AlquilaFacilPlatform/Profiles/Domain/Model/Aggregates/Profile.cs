@@ -15,7 +15,7 @@ public partial class Profile
         UserId = 0;
     }
 
-    public Profile(string name, string fatherName, string motherName, string dateOfBirth, string documentNumber,
+    public Profile(string name, string? fatherName, string? motherName, string dateOfBirth, string documentNumber,
         string phone,int userId) : this()
     {
         Name = new PersonName(name, fatherName, motherName);

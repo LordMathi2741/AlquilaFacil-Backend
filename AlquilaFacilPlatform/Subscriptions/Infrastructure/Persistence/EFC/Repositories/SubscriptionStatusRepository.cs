@@ -11,6 +11,6 @@ public class SubscriptionStatusRepository(AppDbContext context) : BaseRepository
 {
     public async Task<bool> ExistsBySubscriptionStatus(ESubscriptionStatus subscriptionStatus)
     {
-        return await context.Set<SubscriptionStatus>().AnyAsync(x => x.Status == subscriptionStatus.ToString());
+        return await Context.Set<SubscriptionStatus>().AnyAsync(x => x.Status == subscriptionStatus.ToString());
     }
 }

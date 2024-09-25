@@ -5,7 +5,7 @@ namespace AlquilaFacilPlatform.Profiles.Interfaces.ACL.Services;
 
 public class ProfilesContextFacade(IProfileCommandService profileCommandService) : IProfilesContextFacade
 {
-    public async Task<int> CreateProfile(string name, string fatherName, string motherName, string dateOfBirth, string documentNumber,
+    public async Task<int> CreateProfile(string name, string? fatherName, string? motherName, string dateOfBirth, string documentNumber,
         string phone, int userId)
     {
         var createProfileCommand = new CreateProfileCommand(name, fatherName, motherName, dateOfBirth, documentNumber, phone, userId);

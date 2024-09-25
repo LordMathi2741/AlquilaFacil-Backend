@@ -12,8 +12,8 @@ public class ProfileTests
     public void Profile_Constructor_WithParameters_ShouldInitializeProperties()
     { 
         string name = "John";
-        string fatherName = "Doe";
-        string motherName = "Smith";
+        string? fatherName = "Doe";
+        string? motherName = "Smith";
         string dateOfBirth = "1990-01-01";
         string documentNumber = "12345678";
         string phone = "123456789";

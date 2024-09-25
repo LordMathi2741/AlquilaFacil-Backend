@@ -2,9 +2,9 @@ namespace AlquilaFacilPlatform.Subscriptions.Domain.Model.Aggregates;
 
 public class Invoice
 {
-    public int Id { get; private set; }
-    public float Amount { get; private set; }
-    public DateTime Date { get; private set; }
+    public int Id { get; }
+    public float Amount { get;  set; }
+    public DateTime Date { get; set; }
     public int SubscriptionId { get; set; }
 
     public Invoice(int subscriptionId, float amount, DateTime date)

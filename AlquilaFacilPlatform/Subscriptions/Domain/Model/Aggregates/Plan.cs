@@ -8,8 +8,6 @@ public class Plan
     public string Service { get; set; }
     public float Price { get; set; }
     
-    public ICollection<Subscription> Subscriptions { get; }
-    
     public Plan()
     {
         Name = string.Empty;
