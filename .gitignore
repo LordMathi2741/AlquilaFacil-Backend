@@ -4,5 +4,4 @@ obj/
 *.pdb
 *.dll
 *.deps.json
-AlquilaFacilPlatform.pdb
-AlquilaFacilPlatform.Tests.runtimeconfig.json
+*.runtimeconfig.json
