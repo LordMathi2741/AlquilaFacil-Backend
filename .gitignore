@@ -5,3 +5,5 @@ obj/
 *.dll
 *.deps.json
 *.runtimeconfig.json
+# Ignore runtimeconfig.json files in bin folder
+**/bin/*.runtimeconfig.json
